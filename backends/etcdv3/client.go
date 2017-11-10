@@ -1,14 +1,11 @@
 package etcdv3
 
 import (
-	"crypto/tls"
-	"crypto/x509"
 	"fmt"
-	"io/ioutil"
 	"strings"
 	"time"
 
-	"golang.org/x/net/context"
+	"context"
 
 	"github.com/coreos/etcd/clientv3"
 )
@@ -19,49 +16,11 @@ type Client struct {
 }
 
 // NewEtcdClient returns an *etcdv3.Client with a connection to named machines.
-func NewEtcdClient(machines []string, cert, key, caCert string, basicAuth bool, username string, password string) (*Client, error) {
+func NewEtcdClient(machines []string) (*Client, error) {
 	var cli *clientv3.Client
 	cfg := clientv3.Config{
 		Endpoints:   machines,
 		DialTimeout: 5 * time.Second,
-	}
-
-	if basicAuth {
-		cfg.Username = username
-		cfg.Password = password
-	}
-
-	tlsEnabled := false
-	tlsConfig := &tls.Config{
-		InsecureSkipVerify: false,
-	}
-
-	if caCert != "" {
-		certBytes, err := ioutil.ReadFile(caCert)
-		if err != nil {
-			return &Client{cli}, err
-		}
-
-		caCertPool := x509.NewCertPool()
-		ok := caCertPool.AppendCertsFromPEM(certBytes)
-
-		if ok {
-			tlsConfig.RootCAs = caCertPool
-		}
-		tlsEnabled = true
-	}
-
-	if cert != "" && key != "" {
-		tlsCert, err := tls.LoadX509KeyPair(cert, key)
-		if err != nil {
-			return &Client{cli}, err
-		}
-		tlsConfig.Certificates = []tls.Certificate{tlsCert}
-		tlsEnabled = true
-	}
-
-	if tlsEnabled {
-		cfg.TLS = tlsConfig
 	}
 
 	cli, err := clientv3.New(cfg)

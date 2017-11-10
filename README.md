@@ -1,28 +1,32 @@
 # confd
 
-[![Build Status](https://travis-ci.org/kelseyhightower/confd.svg?branch=master)](https://travis-ci.org/kelseyhightower/confd)
+* `what I want`: Learning the src code by modifying them on my own way
+* `target`: simplify, only etcd/etcdv3 is needed (without client security options)
+* `todo`: first support backend etcd/etcdv3 only, then improve(config, test...)
+* `status`: dev 
+
 
 `confd` is a lightweight configuration management tool focused on:
 
-* keeping local configuration files up-to-date using data stored in [etcd](https://github.com/coreos/etcd),
-  [consul](http://consul.io), [dynamodb](http://aws.amazon.com/dynamodb/), [redis](http://redis.io),
-  [vault](https://vaultproject.io), [zookeeper](https://zookeeper.apache.org), [aws ssm parameter store](https://aws.amazon.com/ec2/systems-manager/) or env vars and processing [template resources](docs/template-resources.md).
+* keeping local configuration files up-to-date using data stored in [etcd](https://github.com/coreos/etcd)
 * reloading applications to pick up new config file changes
 
-## Community
 
-* IRC: `#confd` on Freenode
-* Mailing list: [Google Groups](https://groups.google.com/forum/#!forum/confd-users)
-* Website: [www.confd.io](http://www.confd.io)
 
 ## Building
 
 Go 1.8 is required to build confd, which uses the new vendor directory.
 
 ```
-$ mkdir -p $GOPATH/src/github.com/kelseyhightower
-$ git clone https://github.com/kelseyhightower/confd.git $GOPATH/src/github.com/kelseyhightower/confd
-$ cd $GOPATH/src/github.com/kelseyhightower/confd
+$ mkdir -p $GOPATH/src/github.com/opera443399
+$ cd $GOPATH/src/github.com/opera443399
+$ git clone https://github.com/opera443399/confd.git
+$ cd confd
+```
+
+dep is needed
+```
+$ go get github.com/golang/dep/cmd/dep
 $ make
 ```
 
@@ -33,12 +37,3 @@ $ ls bin/
 confd
 ```
 
-## Getting Started
-
-Before we begin be sure to [download and install confd](docs/installation.md).
-
-* [quick start guide](docs/quick-start-guide.md)
-
-## Next steps
-
-Check out the [docs directory](docs) for more docs.
