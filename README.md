@@ -30,6 +30,14 @@ $ go get github.com/golang/dep/cmd/dep
 $ make
 ```
 
+test
+```
+$ make test
+
+## need curl, etcdctl
+$ make integration
+```
+
 You should now have confd in your `bin/` directory:
 
 ```
